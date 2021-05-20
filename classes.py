@@ -67,4 +67,11 @@ class Hero():
         else:
             print("No potions left")
             
-          
+class FightingWireFrames(Hero):
+    def __init__(self, name, xpos, ypos, hp = 10, atk = 20, dfs = 0, matk = 0, mdfs  = 0,  spd = 1, rge = 1, critFactor = 0, critRate = 0, movement = 1, items = {} ):
+        super().__init__(name, xpos, ypos, hp, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
+           
+
+    
+   
+    

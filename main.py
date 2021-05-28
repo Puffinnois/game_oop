@@ -1,6 +1,6 @@
-from classes import Hero
+from classes import Unit, Hero
 
-atralb  = Hero("Atralb", xpos = 1, ypos = 1, atk = 10, rge = 3)
+atralb  = Unit("Atralb", xpos = 1, ypos = 1, atk = 10, rge = 3)
 
 malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, items = {"potions": 1})
 
@@ -10,7 +10,7 @@ malkesuras.getPos()
 
 malkesuras.attack(atralb)
 
-atralb.move(1,0)
+atralb.move(0,1)
 
 atralb.attack(malkesuras)
 
@@ -27,3 +27,7 @@ malkesuras.usePotion()
 malkesuras.getItems()
 
 malkesuras.usePotion()
+
+malkesuras.teleport(4,0)
+
+print(Hero.positions)

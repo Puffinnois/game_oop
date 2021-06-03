@@ -31,3 +31,7 @@ malkesuras.usePotion()
 malkesuras.teleport(4,0)
 
 print(Hero.positions)
+
+Hero.positions[0,0] = "test"
+
+print(Hero.positions)

@@ -25,7 +25,7 @@ class Unit():
         
 
     # todo
-    def _choosePosition(self, x_wanted, y_wanted):
+    def __choosePosition(self, x_wanted, y_wanted):
         if x_wanted >= 10 :
             x_wanted = 9
         if x_wanted < 0 :
@@ -65,19 +65,21 @@ class Unit():
             print(f"Number of {i}: {y}")
               
     def move(self, x, y):
-        if  x + y <= self.movement:
+        if abs(x) + abs(y) <= self.movement:
             x_wanted = self.xpos + x 
             y_wanted = self.ypos + y
-            if Unit.positions[x_wanted, y_wanted] == False:
-                Unit.positions[self.xpos, self.ypos] = False
-                Unit.positions[x_wanted, y_wanted] = True
-                self.movement = self.movement - (x + y)
-                self.xpos = x_wanted  
-                self.ypos = y_wanted
-                self.getPos()
+            if x_wanted > 0 and x_wanted < 10 and y_wanted > 0 and y_wanted < 10:
+                if Unit.positions[x_wanted, y_wanted] == False:
+                    Unit.positions[self.xpos, self.ypos] = False
+                    Unit.positions[x_wanted, y_wanted] = True
+                    self.movement = self.movement - (x + y)
+                    self.xpos = x_wanted  
+                    self.ypos = y_wanted
+                    self.getPos()
+                else:
+                    print("you are trying to step on another unit")
             else:
-                print("you are trying to step on another unit")
-
+                print("deserter !")
         else:
             print("not enough movement")
             

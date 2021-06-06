@@ -5,6 +5,8 @@ class Unit():
     
     positions = np.zeros((10,10))
     
+    unit_counter = 0
+
     def __init__(self, name, xpos, ypos, expvalue = 10, hp = 100, mana = 0, atk = 5, dfs = 2, matk = 0, mdfs  = 0,  spd = 5, rge = 1, critFactor = 0, critRate = 0, movement = 5, items = {}):
         self.alive = True
         self.name = name
@@ -25,9 +27,9 @@ class Unit():
         self.movement = movement
         self.movement_max = movement
         self.items = items
-        
+        self.id = Unit.unit_counter + 1
+        Unit.unit_counter += 1
 
-    # todo
     def __choosePosition(self, x_wanted, y_wanted):
         if x_wanted >= 10 :
             x_wanted = 9

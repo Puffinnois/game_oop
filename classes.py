@@ -5,9 +5,10 @@ class Unit():
     
     positions = np.zeros((10,10))
     
-    def __init__(self, name, xpos, ypos, hp = 100, mana = 0, atk = 5, dfs = 2, matk = 0, mdfs  = 0,  spd = 5, rge = 1, critFactor = 0, critRate = 0, movement = 5, items = {}):
+    def __init__(self, name, xpos, ypos, expvalue = 10, hp = 100, mana = 0, atk = 5, dfs = 2, matk = 0, mdfs  = 0,  spd = 5, rge = 1, critFactor = 0, critRate = 0, movement = 5, items = {}):
         self.alive = True
         self.name = name
+        self.expvalue = expvalue
         self.hp = hp
         self.maxhp = hp
         self.mana = mana
@@ -19,7 +20,7 @@ class Unit():
         self.rge = rge
         self.critFactor = critFactor
         self.critRate = critRate
-        self.xpos, self.ypos = self._choosePosition(xpos, ypos)
+        self.xpos, self.ypos = self.__choosePosition(xpos, ypos)
         self.movement = movement
         self.items = items
         
@@ -110,9 +111,34 @@ class Unit():
             print("No potions left")
 
 class Hero(Unit):
-    def __init__(self, name, xpos, ypos, hp = 100, mana = 10, atk = 20, dfs = 0, matk = 0, mdfs  = 0,  spd = 1, rge = 1, critFactor = 0, critRate = 0, movement = 1, tpmovement = 5, items = {} ):
-        super().__init__(name, xpos, ypos, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
+    def __init__(self, name, xpos, ypos, lvl = 1, exp = 0, exptolvlup = 100, expvalue = 50, hp = 100, mana = 10, atk = 20, dfs = 0, matk = 0, mdfs  = 0,  spd = 1, rge = 1, critFactor = 0, critRate = 0, movement = 1, tpmovement = 5, items = {} ):
+        super().__init__(name, xpos, ypos, expvalue, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
         self.tpmovement = tpmovement
+        self.lvl = lvl
+        self.exp = exp
+        self.exptolvlup = exptolvlup
+    
+    def showStats(self):
+        print(f"{self.name}: {self.exp}/{self.exptolvlup} xp\n{self.hp} hp\n{self.mana} mana\n{self.atk} atk\n{self.dfs} dfs")
+
+    def lvlup(self):
+        self.lvl += 1
+        self.exp = self.exp - self.exptolvlup
+        self.exptolvlup += 5
+        self.expvalue += 5
+        self.hp += 15
+        self.mana += 5
+        self.atk += 2
+        self.dfs += 1
+        print(f"{self.name} has leveled up and is now level {self.lvl}")
+        self.showStats()
+
+    def gainExp(self, expvalue):
+        self.exp += expvalue
+        if self.exp >= self.exptolvlup:
+            self.lvlup()
+        else:
+            print(f"{self.exp}/{self.exptolvlup} xp")
 
     def teleport(self, x, y):
         if self.mana > 5:
@@ -135,10 +161,14 @@ class Hero(Unit):
         else:
             print("not enough mana")
 
+    def attack(self, enemy):
+        super().attack(enemy)
+        if enemy.alive == False:
+            self.gainExp(enemy.expvalue)
 
 class FightingWireFrames(Unit):
-    def __init__(self, name, xpos, ypos, hp = 10, mana = 0, atk = 20, dfs = 0, matk = 0, mdfs  = 0,  spd = 1, rge = 1, critFactor = 0, critRate = 0, movement = 1, items = {} ):
-        super().__init__(name, xpos, ypos, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
+    def __init__(self, name, xpos, ypos, expvalue = 15, hp = 10, mana = 0, atk = 20, dfs = 0, matk = 0, mdfs  = 0,  spd = 1, rge = 1, critFactor = 0, critRate = 0, movement = 1, items = {} ):
+        super().__init__(name, xpos, ypos, expvalue, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
            
 
     

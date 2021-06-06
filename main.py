@@ -1,37 +1,35 @@
 from classes import Unit, Hero
 
-atralb  = Unit("Atralb", xpos = 1, ypos = 1, atk = 10, rge = 3)
+atralb  = Hero("Atralb", xpos = 1, ypos = 1, atk = 100, rge = 3)
 
-malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, items = {"potions": 1})
+malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, expvalue = 40, items = {"potions": 1})
 
-atralb.getPos()
-
-malkesuras.getPos()
-
-malkesuras.attack(atralb)
+atralb.showStats()
 
 atralb.move(0,1)
 
 atralb.attack(malkesuras)
 
-atralb.move(1,0)
+malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, expvalue = 40, items = {"potions": 1})
 
 atralb.attack(malkesuras)
 
-malkesuras.items["boost"]  = 2
+malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, expvalue = 40, items = {"potions": 1})
 
-malkesuras.getItems()
+atralb.attack(malkesuras)
 
-malkesuras.usePotion()
+unit = Unit("unit", xpos = 1, ypos = 0)
 
-malkesuras.getItems()
+atralb.attack(unit)
 
-malkesuras.usePotion()
+hero = Hero("test", xpos = 0, ypos = 1)
 
-malkesuras.teleport(4,0)
+atralb.attack(hero)
+
+atralb.showStats()
+
+atralb.move(1,0)
 
 print(Hero.positions)
 
-Hero.positions[0,0] = "test"
 
-print(Hero.positions)

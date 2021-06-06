@@ -12,6 +12,7 @@ class Unit():
         self.hp = hp
         self.maxhp = hp
         self.mana = mana
+        self.maxmana = mana
         self.atk = atk
         self.dfs = dfs
         self.matk = matk
@@ -126,8 +127,10 @@ class Hero(Unit):
         self.exp = self.exp - self.exptolvlup
         self.exptolvlup += 5
         self.expvalue += 5
-        self.hp += 15
+        self.maxhp += 10
+        self.hp = self.maxhp    
         self.mana += 5
+        self.mana = self.maxmana
         self.atk += 2
         self.dfs += 1
         print(f"{self.name} has leveled up and is now level {self.lvl}")

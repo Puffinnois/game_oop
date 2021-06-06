@@ -26,6 +26,8 @@ hero = Hero("test", xpos = 0, ypos = 1)
 
 atralb.attack(hero)
 
+malkesuras.usePotion()
+
 atralb.showStats()
 
 atralb.move(1,0)

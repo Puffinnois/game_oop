@@ -10,9 +10,9 @@ class Unit():
         self.name = name
         self.expvalue = expvalue
         self.hp = hp
-        self.maxhp = hp
+        self.hp_max = hp
         self.mana = mana
-        self.maxmana = mana
+        self.mana_max = mana
         self.atk = atk
         self.dfs = dfs
         self.matk = matk
@@ -23,6 +23,7 @@ class Unit():
         self.critRate = critRate
         self.xpos, self.ypos = self.__choosePosition(xpos, ypos)
         self.movement = movement
+        self.movement_max = movement
         self.items = items
         
 
@@ -105,7 +106,7 @@ class Unit():
     
     def usePotion(self):
         if self.items["potions"] >= 1:
-            self.hp = self.hp + 10 if self.hp + 10 <= self.maxhp else self.maxhp
+            self.hp = self.hp + 10 if self.hp + 10 <= self.hp_max else self.hp_max
             self.getHp()
             self.items["potions"] -= 1 
         else:
@@ -114,10 +115,12 @@ class Unit():
 class Hero(Unit):
     def __init__(self, name, xpos, ypos, lvl = 1, exp = 0, exptolvlup = 100, expvalue = 50, hp = 100, mana = 10, atk = 20, dfs = 0, matk = 0, mdfs  = 0,  spd = 1, rge = 1, critFactor = 0, critRate = 0, movement = 1, tpmovement = 5, items = {} ):
         super().__init__(name, xpos, ypos, expvalue, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
-        self.tpmovement = tpmovement
         self.lvl = lvl
         self.exp = exp
         self.exptolvlup = exptolvlup
+        self.tpmovement = tpmovement
+        self.tpmovement_max = tpmovement
+        
     
     def showStats(self):
         print(f"{self.name}: {self.exp}/{self.exptolvlup} xp\n{self.hp} hp\n{self.mana} mana\n{self.atk} atk\n{self.dfs} dfs")
@@ -127,10 +130,10 @@ class Hero(Unit):
         self.exp = self.exp - self.exptolvlup
         self.exptolvlup += 5
         self.expvalue += 5
-        self.maxhp += 10
-        self.hp = self.maxhp    
+        self.hp_max += 10
+        self.hp = self.hp_max    
         self.mana += 5
-        self.mana = self.maxmana
+        self.mana = self.mana_max
         self.atk += 2
         self.dfs += 1
         print(f"{self.name} has leveled up and is now level {self.lvl}")

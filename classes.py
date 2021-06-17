@@ -99,6 +99,7 @@ class Unit():
                 if enemy.hp <= 0:
                     enemy.alive = False
                     print(f"{enemy.name} has perished")
+                    Unit.positions[enemy.xpos, enemy.ypos] = False
                 self.movement = 0
             else:
                 print("enemy defense is too high for you, you suck")
@@ -174,6 +175,46 @@ class Hero(Unit):
         if enemy.alive == False:
             self.gainExp(enemy.expvalue)
 
+class Berserk(Unit):
+    def __init__(self, name, xpos, ypos, expvalue = 50, hp = 75, mana = 0, atk = 10, dfs = 3, matk = 0, mdfs  = 0,  spd = 5, rge = 1, critFactor = 0, critRate = 0, movement = 5, items = {}, rage = 0):
+        super().__init__(name, xpos, ypos, expvalue, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
+        self.rage = rage
+    
+    def frenzy(self):
+        if self.rage >= 20:
+            self.atk += 10
+            self.dfs = 0
+            self.rage -= 20
+            print(f"{self.name} is enraged !")
+        else: 
+            print(f"Not bloody enough for the gods ({self.rage}/3 rage)")
+
+    def attack(self, enemy):
+        super().attack(enemy)
+        self.rage += 5
+        print(f"you have {self.rage} rage") 
+
+class Paladin(Unit):
+    def __init__(self, name, xpos, ypos, expvalue = 50, hp = 75, mana = 0, atk = 10, dfs = 3, matk = 0, mdfs  = 0,  spd = 5, rge = 1, critFactor = 0, critRate = 0, movement = 5, holiness = 0, items = {}):
+        super().__init__(name, xpos, ypos, expvalue, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)
+        self.holiness = holiness
+    
+    def sanctify(self, enemy):
+        if self.holiness >= 3:
+            self.atk += 25
+            print("By the power of the gods !")
+            super().attack(enemy)
+            self.atk -= 25
+            self.holiness -= 3
+        else: 
+            print(f"Not holy enough for the gods ({self.holiness}/3 holiness)")
+
+    def attack(self, enemy):
+        super().attack(enemy)
+        if enemy.alive == False:
+            self.holiness += 1
+            print(f"you have {self.holiness} holiness") 
+        
 class FightingWireFrames(Unit):
     def __init__(self, name, xpos, ypos, expvalue = 15, hp = 10, mana = 0, atk = 20, dfs = 0, matk = 0, mdfs  = 0,  spd = 1, rge = 1, critFactor = 0, critRate = 0, movement = 1, items = {} ):
         super().__init__(name, xpos, ypos, expvalue, hp, mana, atk, dfs, matk, mdfs, spd, rge, critFactor, critRate, movement, items)

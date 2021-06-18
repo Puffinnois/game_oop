@@ -1,37 +1,10 @@
-from classes import Unit, Hero
+import game
 
-atralb  = Hero("Atralb", xpos = 1, ypos = 1, atk = 100, rge = 3)
+nbPlayers = game.choosePlayerNbr()
 
-malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, expvalue = 40, items = {"potions": 1})
-
-atralb.showStats()
-
-atralb.move(0,1)
-
-atralb.attack(malkesuras)
-
-malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, expvalue = 40, items = {"potions": 1})
-
-atralb.attack(malkesuras)
-
-malkesuras = Hero("Malkesuras", xpos = 1, ypos = 2, expvalue = 40, items = {"potions": 1})
-
-atralb.attack(malkesuras)
-
-unit = Unit("unit", xpos = 1, ypos = 0)
-
-atralb.attack(unit)
-
-hero = Hero("test", xpos = 0, ypos = 1)
-
-atralb.attack(hero)
-
-malkesuras.usePotion()
-
-atralb.showStats()
-
-atralb.move(1,0)
-
-print(Hero.positions)
+for i in range(nbPlayers):
+    game.createHero()
 
 
+for i in range(len(game.heroes)):
+   game.heroes[i].showStats()

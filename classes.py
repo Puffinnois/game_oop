@@ -29,6 +29,11 @@ class Unit():
         self.items = items
         self.id = Unit.unit_counter + 1
         Unit.unit_counter += 1
+    
+    def __death(self):
+        self.alive = False
+        print(f"{self.name} has perished")
+        Unit.positions[self.xpos, self.ypos] = False
 
     def __choosePosition(self, x_wanted, y_wanted):
         if x_wanted >= 10 :
@@ -97,9 +102,7 @@ class Unit():
                 print(f"You hit for {dmg} ")
                 enemy.getHp()
                 if enemy.hp <= 0:
-                    enemy.alive = False
-                    print(f"{enemy.name} has perished")
-                    Unit.positions[enemy.xpos, enemy.ypos] = False
+                    enemy.__death()
                 self.movement = 0
             else:
                 print("enemy defense is too high for you, you suck")

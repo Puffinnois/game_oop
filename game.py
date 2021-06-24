@@ -39,4 +39,43 @@ def createHero():
 
         heroes.append(PaladinHero(name = name, xpos = x_wanted, ypos = y_wanted))
 
+def chooseTarget():
+    for i in range(len(heroes)):
+        print(heroes[i].name)
+    targetName = input("choose target: ")
+    target = None
+    for i in range(len(heroes)):
+        if heroes[i].name == targetName:
+            target = heroes[i]
+    if target == None:
+      target = chooseTarget()
+    return target
+
+def chooseAction(object):
+
+    # https://stackoverflow.com/a/39061905
+
+    method_list = [func for func in dir(object.__class__) 
+        if callable(getattr(object.__class__, func)) 
+        and not func.startswith("_")
+        ]
+    print(method_list)
+    
+    choice = input("action choice: ")
+
+    if choice in method_list:
+        if choice in ["attack", "sanctify"]:
+            target = chooseTarget()
+            getattr(object, choice)(target)
+        elif choice in ["move", "teleport"]:
+            x_wanted = int(input("How much movement on x axis: "))
+            y_wanted = int(input("How much movement on y axis: "))
+            getattr(object, choice)(x_wanted, y_wanted)  
+        else:
+            getattr(object, choice)()
+    else:
+        print("You have chosen a non-existent action, choose again!")
+        chooseAction(object)
+        
+    
 

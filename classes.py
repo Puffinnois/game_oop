@@ -63,7 +63,7 @@ class Unit():
         return x_wanted, y_wanted   
             
 
-    def getHp(self):
+    def __getHp(self):
         print(f"{self.name}'s hp : {self.hp}")
               
     def getPos(self):
@@ -100,7 +100,7 @@ class Unit():
                 dmg = self.atk - enemy.dfs
                 enemy.hp = enemy.hp - dmg
                 print(f"You hit for {dmg} ")
-                enemy.getHp()
+                enemy.__getHp()
                 if enemy.hp <= 0:
                     enemy.__death()
                 self.movement = 0
@@ -113,7 +113,7 @@ class Unit():
     def usePotion(self):
         if self.items["potions"] >= 1:
             self.hp = self.hp + 10 if self.hp + 10 <= self.hp_max else self.hp_max
-            self.getHp()
+            self.__getHp()
             self.items["potions"] -= 1 
         else:
             print("No potions left")
@@ -131,7 +131,7 @@ class Hero(Unit):
     def showStats(self):
         print(f"{self.name}: {self.exp}/{self.exptolvlup} xp\n{self.hp} hp\n{self.mana} mana\n{self.atk} atk\n{self.dfs} dfs")
 
-    def lvlup(self):
+    def __lvlup(self):
         self.lvl += 1
         self.exp = self.exp - self.exptolvlup
         self.exptolvlup += 5
@@ -145,10 +145,10 @@ class Hero(Unit):
         print(f"{self.name} has leveled up and is now level {self.lvl}")
         self.showStats()
 
-    def gainExp(self, expvalue):
+    def __gainExp(self, expvalue):
         self.exp += expvalue
         if self.exp >= self.exptolvlup:
-            self.lvlup()
+            self.__lvlup()
         else:
             print(f"{self.exp}/{self.exptolvlup} xp")
 
@@ -176,7 +176,7 @@ class Hero(Unit):
     def attack(self, enemy):
         super().attack(enemy)
         if enemy.alive == False:
-            self.gainExp(enemy.expvalue)
+            self.__gainExp(enemy.expvalue)
 
 class Berserk(Unit):
     def __init__(self, name, xpos, ypos, expvalue = 50, hp = 75, mana = 0, atk = 10, dfs = 3, matk = 0, mdfs  = 0,  spd = 5, rge = 1, critFactor = 0, critRate = 0, movement = 5, items = {}, rage = 0):
@@ -190,7 +190,7 @@ class Berserk(Unit):
             self.rage -= 20
             print(f"{self.name} is enraged !")
         else: 
-            print(f"Not bloody enough for the gods ({self.rage}/3 rage)")
+            print(f"Not bloody enough for the gods ({self.rage}/20 rage)")
 
     def attack(self, enemy):
         super().attack(enemy)

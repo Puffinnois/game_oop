@@ -1,5 +1,9 @@
 import game
 from game import heroes
+from classes import Unit
+from map import Map
+
+map = game.chooseMapSize()
 
 nbPlayers = game.choosePlayerNbr()
 

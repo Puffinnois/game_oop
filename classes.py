@@ -3,8 +3,6 @@ import random
 
 class Unit(): 
     
-    positions = np.zeros((10,10))
-    
     unit_counter = 0
 
     def __init__(self, name, xpos, ypos, expvalue = 10, hp = 100, mana = 0, atk = 5, dfs = 2, matk = 0, mdfs  = 0,  spd = 5, rge = 1, critFactor = 0, critRate = 0, movement = 5, items = {}):

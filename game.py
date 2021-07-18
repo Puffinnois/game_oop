@@ -4,21 +4,6 @@ rpgClasses = ["berserk","paladin"]
 
 heroes = []
 
-def chooseMapSize():
-    print("list of different map size:\n- small: 1\n- medium: 2\n- big: 3")
-    choice = int(input("map choice: "))
-
-    if choice == 1:
-       map = Map(height = 5, width = 5)
-
-    if choice == 2:
-       map = Map(height = 10, width = 10)
-
-    if choice == 3:
-       map = Map(height = 25, width = 25)
-
-    return map
-
 def choosePlayerNbr():
     a = input("choose the number of players: ")
     nbPlayer = False
@@ -91,6 +76,3 @@ def chooseAction(object):
     else:
         print("You have chosen a non-existent action, choose again!")
         chooseAction(object)
-        
-    
-

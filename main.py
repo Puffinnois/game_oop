@@ -1,15 +1,11 @@
 import game
 from game import heroes
-from classes import Unit
-from map import Map
-
-map = game.chooseMapSize()
+from map import gameMap
 
 nbPlayers = game.choosePlayerNbr()
 
 for i in range(nbPlayers):
     game.createHero()
-
 
 for i in range(len(heroes)):
    heroes[i].showStats()

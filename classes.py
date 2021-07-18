@@ -1,5 +1,6 @@
 import numpy as np
 import random
+from map import gameMap
 
 class Unit(): 
     
@@ -34,29 +35,32 @@ class Unit():
         Unit.positions[self.xpos, self.ypos] = False
 
     def __choosePosition(self, x_wanted, y_wanted):
-        if x_wanted >= 10 :
-            x_wanted = 9
+        if x_wanted >= gameMap.height :
+            x_wanted = gameMap.height - 1
         if x_wanted < 0 :
             x_wanted = 0
-        if y_wanted >= 10 :
-            y_wanted = 9
+        if y_wanted >= gameMap.width :
+            y_wanted = gameMap.width - 1
         if y_wanted < 0 :
             y_wanted = 0
             
-        while Unit.positions[x_wanted, y_wanted] == True :
+        while gameMap.map[x_wanted][y_wanted].player != None or gameMap.map[x_wanted][y_wanted].obstacle == True:
+            
             c = random.randint(0,2)
             if c == 0:
-                if x_wanted > 5:
+                x_temp = x_wanted
+                if x_temp > gameMap.height / 2:
                     x_wanted -= 1
-                if x_wanted <= 5:
+                if x_temp <= gameMap.height / 2:
                     x_wanted += 1
             if c == 1:
-                if y_wanted > 5:
+                y_temp = y_wanted
+                if y_temp > gameMap.width / 2:
                     y_wanted -= 1
-                if y_wanted <= 5:
+                if y_temp <= gameMap.width / 2:
                     y_wanted += 1
 
-        Unit.positions[x_wanted, y_wanted] = True
+        gameMap.map[x_wanted][y_wanted].player = self
 
         return x_wanted, y_wanted   
             

@@ -20,6 +20,9 @@ while len(aliveCount) > 1:
         if heroes[i].alive == True:
             print(f"-----{heroes[i].name}'s turn-----")
             game.chooseAction(heroes[i])
+    # updating alivecount
+    aliveCount = [1 for hero in heroes if hero.alive == True]
 
-
-
+for i in range(len(heroes)):
+    if heroes[i].alive == True:
+        print(f"{heroes[i].name} wins the game")

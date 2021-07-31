@@ -31,8 +31,8 @@ class Unit():
     
     def __death(self):
         self.alive = False
+        gameMap.map[self.xpos][self.ypos].player = None
         print(f"{self.name} has perished")
-        Unit.positions[self.xpos, self.ypos] = False
 
     def __choosePosition(self, x_wanted, y_wanted):
         if x_wanted >= gameMap.height :
@@ -68,8 +68,14 @@ class Unit():
     def __getHp(self):
         print(f"{self.name}'s hp : {self.hp}")
               
-    def getPos(self):
+    def getPos(self, v = False):
         print(f"Position of {self.name} : {self.xpos},{self.ypos}")
+        if v = True:
+            playerCell = gameMap.map[self.xpos][self.ypos]
+            print(f"map cell at [{self.xpos},{self.ypos}]: ")
+            print(f"obstacle : {playerCell.obsatcle}")
+            print(f"items : {playerCell.items}")
+            print(f"landType : {playerCell.landType}")
         
     def getItems(self):
         print(f"Items of {self.name}: ")
@@ -80,16 +86,19 @@ class Unit():
         if abs(x) + abs(y) <= self.movement:
             x_wanted = self.xpos + x 
             y_wanted = self.ypos + y
-            if x_wanted > 0 and x_wanted < 10 and y_wanted > 0 and y_wanted < 10:
-                if Unit.positions[x_wanted, y_wanted] == False:
-                    Unit.positions[self.xpos, self.ypos] = False
-                    Unit.positions[x_wanted, y_wanted] = True
-                    self.movement = self.movement - (x + y)
-                    self.xpos = x_wanted  
-                    self.ypos = y_wanted
-                    self.getPos()
+            if x_wanted > 0 and x_wanted < gameMap.height and y_wanted > 0 and y_wanted < gameMap.width:
+                if gameMap.map[x_wanted][y_wanted].obstacle == False:
+                    if gameap.map[x_wanted][y_wanted].player == None:
+                        gameMap.map[self.xpos][self.ypos].player = None
+                        gameMap.map[x_wanted][y_wanted].player = self
+                        self.movement = self.movement - (x + y)
+                        self.xpos = x_wanted  
+                        self.ypos = y_wanted
+                        self.getPos()
+                    else:
+                        print("you are trying to step on another unit")
                 else:
-                    print("you are trying to step on another unit")
+                    print("impassable! obstacle on the way")
             else:
                 print("deserter !")
         else:
@@ -159,17 +168,19 @@ class Hero(Unit):
             if  x + y <= self.tpmovement:
                 x_wanted = self.xpos + x 
                 y_wanted = self.ypos + y
-                if Unit.positions[x_wanted, y_wanted] == False:
-                    Unit.positions[self.xpos, self.ypos] = False
-                    Unit.positions[x_wanted, y_wanted] = True
-                    self.tpmovement = self.tpmovement - (x + y)
-                    self.mana = self.mana - 5
-                    self.xpos = x_wanted  
-                    self.ypos = y_wanted
-                    self.getPos()
+                if gameMap.map[x_wanted][y_wanted].obstacle == False:
+                    if gameMap.map[x_wanted][y_wanted].player == None:
+                        gameMap.map[self.xpos][self.ypos].player = None
+                        gameMap.map[x_wanted][y_wanted].player = self
+                        self.tpmovement = 0
+                        self.mana = self.mana - 5
+                        self.xpos = x_wanted  
+                        self.ypos = y_wanted
+                        self.getPos()
+                    else:
+                        print("you are trying to teleport on another unit")
                 else:
-                    print("you are trying to teleport on another unit")
-
+                    print("impassable! obstacle on the way")
             else:
                 print("not enough movement")
         else:

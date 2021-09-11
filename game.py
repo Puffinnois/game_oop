@@ -7,11 +7,12 @@ heroes = []
 def choosePlayerNbr():
     a = input("choose the number of players: ")
     nbPlayer = False
-    while type(nbPlayer) is not int: 
+    while type(nbPlayer) is not int or nbPlayer <= 0: 
         try:
             nbPlayer = int(a)
+            assert nbPlayer > 0
         except:
-            a = input("integer needed, enter the number again: ")
+            a = input("positive integer needed, enter the number again: ")
     return nbPlayer 
 
 def createHero():

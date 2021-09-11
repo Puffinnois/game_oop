@@ -70,7 +70,7 @@ class Unit():
               
     def getPos(self, v = False):
         print(f"Position of {self.name} : {self.xpos},{self.ypos}")
-        if v = True:
+        if v == True:
             playerCell = gameMap.map[self.xpos][self.ypos]
             print(f"map cell at [{self.xpos},{self.ypos}]: ")
             print(f"obstacle : {playerCell.obsatcle}")

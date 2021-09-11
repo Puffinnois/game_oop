@@ -26,3 +26,5 @@ while len(aliveCount) > 1:
 for i in range(len(heroes)):
     if heroes[i].alive == True:
         print(f"{heroes[i].name} wins the game")
+
+print("END GAME")

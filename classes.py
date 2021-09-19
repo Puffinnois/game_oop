@@ -88,7 +88,7 @@ class Unit():
             y_wanted = self.ypos + y
             if x_wanted > 0 and x_wanted < gameMap.height and y_wanted > 0 and y_wanted < gameMap.width:
                 if gameMap.map[x_wanted][y_wanted].obstacle == False:
-                    if gameap.map[x_wanted][y_wanted].player == None:
+                    if gameMap.map[x_wanted][y_wanted].player == None:
                         gameMap.map[self.xpos][self.ypos].player = None
                         gameMap.map[x_wanted][y_wanted].player = self
                         self.movement = self.movement - (x + y)
